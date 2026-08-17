@@ -10,8 +10,22 @@ dependencies = [
     "numpy>=2.5.1",
     "pandas>=3.0.3",
     "pandas-stubs~=3.0.3",
+    "reasoning-from-scratch>=0.1.21",
     "scipy>=1.18.0",
     "scipy-stubs~=1.18.0",
     "seaborn>=0.13.2",
     "statsmodels>=0.14.6",
+    "torch>=2.13.0",
 ]
+
+# Declaring a build backend makes this a *packaged* project rather than a virtual
+# one, so `uv sync` installs it into .venv in editable mode. That is what puts
+# `mi` on the import path for every notebook, wherever the kernel is started.
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# The package name (mi) differs from the project name (machine-intelligence),
+# so hatchling can't infer the location and needs it spelled out.
+[tool.hatch.build.targets.wheel]
+packages = ["src/mi"]
