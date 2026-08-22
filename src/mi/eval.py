@@ -1,6 +1,8 @@
 import warnings
 import torch
 
+from mi.extraction import split_into_parts, normalize_text, equality_check
+
 
 def generate_stats(output_token_ids, tokenizer, start_time, end_time):
     total_time = end_time - start_time
@@ -27,3 +29,26 @@ def generate_stats(output_token_ids, tokenizer, start_time, end_time):
             print(f"Max {name} memory allocated: {max_mem_gb:.2f} GB")
 
             backend.reset_peak_memory_stats()
+
+
+def grade_answer(pred_text, gt_text):
+    result = False
+
+    if pred_text is not None and gt_text is not None:
+        gt_parts = split_into_parts(
+            normalize_text(gt_text)
+        )
+        pred_parts = split_into_parts(
+            normalize_text(pred_text)
+        )
+
+        if (
+            gt_parts and pred_parts
+            and len(gt_parts) == len(pred_parts)
+        ):
+            result = all(
+                equality_check(gt, pred)
+                for gt, pred in zip(gt_parts, pred_parts)
+            )
+
+    return result
