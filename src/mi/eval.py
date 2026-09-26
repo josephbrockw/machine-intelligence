@@ -5,7 +5,8 @@ import time
 from pathlib import Path
 
 from mi.extraction import split_into_parts, normalize_text, equality_check, extract_final_candidate
-from mi.generate import generate_text_stream_concat
+from mi.lm.generate import generate_text_stream_concat
+from mi.lm.prompts import render_prompt
 
 
 def generate_stats(output_token_ids, tokenizer, start_time, end_time):
@@ -91,15 +92,6 @@ def eta_progress_message(
     message = f"{progress}  |  ETA {eta}"
     return message.ljust(pad_width)
 
-
-def render_prompt(prompt):
-    template = (
-        "You are a helpful math assistant.\n"
-        "Answer the question and write the final result on a new line as:\n"
-        "\\boxed{ANSWER}\n\n"
-        f"Question:\n{prompt}\n\nAnswer:"
-    )
-    return template
 
 
 def evaluate_math500_stream(

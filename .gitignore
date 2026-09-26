@@ -1,5 +1,11 @@
 */qwen3/*
 */downloads/*
+*.pth
+*.pt
+*.safetensors
+*.ckpt
+*.bin
+*.gguf
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,jupyternotebooks
@@ -190,3 +196,4 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks
+
